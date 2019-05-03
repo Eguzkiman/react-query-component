@@ -1,22 +1,37 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-import styles from './styles.css'
+export default function Query (props) {
+	let [error, setError] = useState(null);
+	let [loading, setLoading] = useState(false);
 
-export default class ExampleComponent extends Component {
-  static propTypes = {
-    text: PropTypes.string
-  }
+	useEffect(() => {
+		fetch();
+	}, []);
 
-  render() {
-    const {
-      text
-    } = this.props
+	async function fetch () {
+		setLoading(true);
+		setError(null);
+		try {
+			await props.query();
+			setLoading(false);
+		} catch (e) {
+			setError(e);
+			setLoading(false);
+			throw e;
+		}
+	}
 
-    return (
-      <div className={styles.test}>
-        Example Component: {text}
-      </div>
-    )
-  }
+	let data = [{
+		id: 1,
+		name: 'asdf'
+	}, {
+		id: 2,
+		name: 'asdf'
+	}, {
+		id: 3,
+		name: 'asdf'
+	}];
+
+	return props.children({ error, loading, data });
 }

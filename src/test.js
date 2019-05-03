@@ -1,7 +1,7 @@
-import ExampleComponent from './'
+import Query from './'
 
-describe('ExampleComponent', () => {
-  it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
-  })
-})
+describe('Query', () => {
+	it('is truthy', () => {
+		expect(Query).toBeTruthy()
+	});
+});
